@@ -83,7 +83,7 @@ router.post('/login', async (req, res) => {
 
         //* if match password then generate token JWT_SECRET
         if (doMatch) {
-            const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || 'codesprint' , {
+            const token = jwt.sign({ userId: user.id }, 'codesprint' , {
                 expiresIn: '7d'
             })
 
