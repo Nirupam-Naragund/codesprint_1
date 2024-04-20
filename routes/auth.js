@@ -163,5 +163,31 @@ router.post('/increment-flag', async (req, res) => {
     }
 });
 
+router.get('/get-flag', async (req, res) => {
+    try {
+        //* Extract userId from request body
+        const { userId } = req.body;
+
+        //* If userId is missing or invalid, return an error
+        if (!userId) {
+            return res.status(400).json({ error: "Invalid request body. Please provide userId field." });
+        }
+
+        //* Find the user by their ID
+        const user = await User.findById(userId);
+
+        //* If user not found, return an error
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        //* Return the value of the flag
+        res.status(200).json({ flagValue: user.flag });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 export default router
