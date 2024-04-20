@@ -18,6 +18,10 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    flag: {
+        type: Number,
+        default: 0
+    }
 });
 
 const User =  model('user', UserSchema);

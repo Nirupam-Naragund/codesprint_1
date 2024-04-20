@@ -99,4 +99,69 @@ router.post('/login', async (req, res) => {
     }
 })
 
+// router.post('/increment-term', async (req, res) => {
+//     try {
+//         //* Check if the request body contains the userId and increment values
+//         const { userId, increment } = req.body;
+
+//         //* If userId or increment value is missing or invalid, return an error
+//         if (!userId || !increment || typeof increment !== 'boolean') {
+//             return res.status(400).json({ error: "Invalid request body. Please provide userId and increment (boolean) fields." });
+//         }
+
+//         //* Find the user by their ID
+//         const user = await User.findById(userId);
+
+//         //* If user not found, return an error
+//         if (!user) {
+//             return res.status(404).json({ error: "User not found." });
+//         }
+
+//         //* Increment the term field by 1 if increment is true
+//         if (increment) {
+//             user.flag += 1;
+//             await user.save();
+//             return res.status(200).json({ message: "Term incremented successfully.", newTermValue: user.flag });
+//         } else {
+//             return res.status(400).json({ error: "Invalid increment value. It should be true to increment the term." });
+//         }
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
+
+router.post('/increment-flag', async (req, res) => {
+    try {
+        //* Check if the request body contains the userId and incrementFlag values
+        const { userId, incrementFlag } = req.body;
+
+        //* If userId or incrementFlag value is missing or invalid, return an error
+        if (!userId || typeof incrementFlag !== 'boolean') {
+            return res.status(400).json({ error: "Invalid request body. Please provide userId and incrementFlag (boolean) fields." });
+        }
+
+        //* Find the user by their ID
+        const user = await User.findById(userId);
+
+        //* If user not found, return an error
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        //* Increment the flag field by 1 if incrementFlag is true
+        if (incrementFlag) {
+            user.flag = (user.flag || 0) + 1; // Ensure user.flag is initialized
+            await user.save();
+            return res.status(200).json({ message: "Flag incremented successfully.", newFlagValue: user.flag });
+        } else {
+            return res.status(400).json({ error: "Invalid incrementFlag value. It should be true to increment the flag." });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 export default router

@@ -2,8 +2,10 @@ import connectToMongo from './database/db.js';
 import express from 'express';
 import auth from './routes/auth.js'
 import cors from 'cors'
+import dotenv from 'dotenv'
     
 connectToMongo();
+dotenv.config();
 const app = express()
 app.use(express.json());
 
