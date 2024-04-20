@@ -163,7 +163,7 @@ router.post('/increment-flag', async (req, res) => {
     }
 });
 
-router.get('/get-flag', async (req, res) => {
+router.post('/get-flag', async (req, res) => {
     try {
         //* Extract userId from request body
         const { userId } = req.body;
